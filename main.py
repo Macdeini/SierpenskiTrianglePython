@@ -1,28 +1,42 @@
-import turtle
+import pygame
 import math
+import random
 
-t = turtle.Turtle()
 
-# def draw_triangle(l):
-#     for drawing in range(3):
-#         turtle.forward(l)
-#         turtle.left(120)
-#
-#
-# def draw() -> None:
-#     l = 100
-#     counter = 1
-#     hit_top = False
-#     while True:
-#         for num_of_triangles in range(counter):
-#             draw_triangle(l)
-#             t.penup()
-#             turtle.setposition(turtle.position()[0] + l/2, turtle.position()[1] + math.sqrt(l**2 - (l ** 2) / 4))
-#             t.pendown()
-#         turtle.home()
-#         l /= 2
-#         counter *= 2
-#
-#
-# if __name__ == '__main__':
-#     draw()
+def chaos_game():
+    pygame.init()
+    screen = pygame.display.set_mode((1000, 1000))
+    positions = [[100, 900], [900, 900], [500, 100]]
+    radius = 1
+    colors = ["white", "yellow", "blue", "red", "green", "purple", "orange"]
+    pygame.draw.line(screen, colors[0], positions[0], positions[1])
+    pygame.draw.line(screen, colors[0], positions[1], positions[2])
+    pygame.draw.line(screen, colors[0], positions[2], positions[0])
+    font = pygame.font.Font('freesansbold.ttf', 16)
+    text = font.render('Click within the Triangle to start', True, colors[0], (0, 0, 0))
+    textRect = text.get_rect()
+    textRect.center = (200, 100)
+    screen.blit(text, textRect)
+    pygame.display.update()
+    chosen = False
+    while not chosen:
+        for event in pygame.event.get():
+            if event.type == pygame.MOUSEBUTTONUP:
+                start = [pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1]]
+                chosen = True
+
+    screen.fill("black")
+    pygame.draw.circle(screen, colors[0], positions[0], radius)
+    pygame.draw.circle(screen, colors[0], positions[1], radius)
+    pygame.draw.circle(screen, colors[0], positions[2], radius)
+    for _ in range(100000):
+        vertex = random.choice(positions)
+        start[0] += (vertex[0] - start[0]) / 2
+        start[1] += (vertex[1] - start[1]) / 2
+        pygame.draw.circle(screen, random.choice(colors), start, radius)
+        pygame.display.update()
+    pygame.quit()
+
+
+if __name__ == '__main__':
+    chaos_game()
