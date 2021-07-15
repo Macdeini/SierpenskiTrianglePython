@@ -1,2 +1,2 @@
-# SierpenskiTrianglePython
-An attempt at drawing sierpenski's triangle with python and turtle
+# SierpenskiTrianglePytho
+Generation of Sierpenski's Triangle using Python and pygame.
